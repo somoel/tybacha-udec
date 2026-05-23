@@ -1,14 +1,24 @@
 {
   "name": "tybacha",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "private": true,
+  "description": "Tybacha: gestion, seguimiento y monitoreo de adultos mayores.",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "build": "tsc"
+    "dev:app": "corepack pnpm --filter @tybacha/app dev",
+    "dev:api": "corepack pnpm --filter @tybacha/api dev",
+    "build": "corepack pnpm --filter @tybacha/compartido build && corepack pnpm --filter @tybacha/api build && corepack pnpm --filter @tybacha/app build",
+    "lint": "corepack pnpm --filter @tybacha/compartido lint && corepack pnpm --filter @tybacha/api lint && corepack pnpm --filter @tybacha/app lint",
+    "test": "corepack pnpm --filter @tybacha/compartido test && corepack pnpm --filter @tybacha/api test && corepack pnpm --filter @tybacha/app test",
+    "verificar": "corepack pnpm --filter @tybacha/compartido build && corepack pnpm --filter @tybacha/api verificar && corepack pnpm --filter @tybacha/app verificar"
   },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.5.3"
-  },
-  "private": true
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3",
+    "vitest": "^2.1.9"
+  }
 }

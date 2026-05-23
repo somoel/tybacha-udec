@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@tybacha/compartido": ["../../paquetes/compartido/src"]
+    }
+  },
+  "include": ["api/**/*.ts", "src/**/*.ts", "semillas/**/*.ts", "pruebas/**/*.ts"]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@tybacha/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src api pruebas --ext .ts",
+    "test": "vitest run",
+    "migrar": "tsx src/base_datos/migrar.ts",
+    "seed": "tsx semillas/seed.ts",
+    "verificar": "corepack pnpm build && corepack pnpm lint && corepack pnpm test && tsx src/utilidades/verificar-produccion.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@tybacha/compartido": "workspace:*",
+    "bcryptjs": "^2.4.3",
+    "hono": "^4.6.16",
+    "jose": "^5.9.6",
+    "mysql2": "^3.11.5",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.3",
+    "vercel": "^39.2.2",
+    "vitest": "^2.1.9"
+  }
+}
