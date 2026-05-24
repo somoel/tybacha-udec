@@ -2,10 +2,9 @@
   "name": "@tybacha/api",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc -p tsconfig.json --noEmit",
+    "build": "corepack pnpm --filter @tybacha/compartido build && tsc -p tsconfig.json --noEmit",
     "lint": "eslint src api pruebas --ext .ts",
     "test": "vitest run",
     "migrar": "tsx src/base_datos/migrar.ts",

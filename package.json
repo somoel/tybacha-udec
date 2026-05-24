@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Tybacha: gestion, seguimiento y monitoreo de adultos mayores.",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev:app": "corepack pnpm --filter @tybacha/app dev",
     "dev:api": "corepack pnpm --filter @tybacha/api dev",
