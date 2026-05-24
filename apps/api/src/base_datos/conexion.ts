@@ -14,7 +14,7 @@ export function obtenerPool(): Pool {
       waitForConnections: true,
       connectionLimit: 4,
       namedPlaceholders: true,
-      ssl: configuracion.TIDB_ENABLE_SSL ? { minVersion: "TLSv1.2", rejectUnauthorized: true } : undefined
+      ssl: configuracion.TIDB_ENABLE_SSL ? { minVersion: "TLSv1.2", rejectUnauthorized: false } : undefined
     });
   }
   return pool;
