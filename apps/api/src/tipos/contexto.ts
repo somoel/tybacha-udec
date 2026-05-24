@@ -1,4 +1,4 @@
-import type { UsuarioAutenticado } from "@tybacha/compartido";
+import type { UsuarioAutenticado } from "../compartido";
 
 export type VariablesContexto = {
   usuario?: UsuarioAutenticado;

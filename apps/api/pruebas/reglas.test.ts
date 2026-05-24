@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { permisoDeRol, rolValido, respuestaGeminiPlanSchema } from "@tybacha/compartido";
+import { permisoDeRol, rolValido, respuestaGeminiPlanSchema } from "../src/compartido";
 
 describe("reglas principales", () => {
   it("no permite adulto mayor como rol autenticable", () => {

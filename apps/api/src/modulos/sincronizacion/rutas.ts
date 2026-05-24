@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { loteSincronizacionSchema } from "@tybacha/compartido";
+import { loteSincronizacionSchema } from "../../compartido";
 import { requiereAutenticacion } from "../../middlewares/autenticacion";
 import type { VariablesContexto } from "../../tipos/contexto";
 import { ejecutar } from "../../base_datos/conexion";

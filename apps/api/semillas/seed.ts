@@ -1,6 +1,6 @@
 import { ejecutar, consultarUno, obtenerPool, transaccion } from "../src/base_datos/conexion";
 import { hashContrasena } from "../src/utilidades/seguridad";
-import { permisosPorRol, type Rol } from "@tybacha/compartido";
+import { permisosPorRol, type Rol } from "../src/compartido";
 
 async function idUsuarioPorCorreo(correo: string) {
   const fila = await consultarUno<{ id_usuario: number }>("SELECT id_usuario FROM usuario WHERE correo = ?", [correo]);

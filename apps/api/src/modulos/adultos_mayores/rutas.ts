@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { adultoMayorSchema, actualizarAdultoMayorSchema, fotoAdultoMayorSchema, idNumerico, paginacionConsulta } from "@tybacha/compartido";
+import { adultoMayorSchema, actualizarAdultoMayorSchema, fotoAdultoMayorSchema, idNumerico, paginacionConsulta } from "../../compartido";
 import { consultar, consultarUno, ejecutar, transaccion } from "../../base_datos/conexion";
 import { requiereAutenticacion, requierePermiso } from "../../middlewares/autenticacion";
 import type { VariablesContexto } from "../../tipos/contexto";

@@ -1,8 +1,8 @@
 import { createHash, randomUUID } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { SignJWT, jwtVerify } from "jose";
-import type { Rol, UsuarioAutenticado } from "@tybacha/compartido";
-import { permisosPorRol } from "@tybacha/compartido";
+import type { Rol, UsuarioAutenticado } from "../compartido";
+import { permisosPorRol } from "../compartido";
 import { configuracion } from "./configuracion";
 
 const accessSecret = new TextEncoder().encode(configuracion.JWT_ACCESS_SECRET);

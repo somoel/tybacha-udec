@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { crearUsuarioSchema, paginacionConsulta } from "@tybacha/compartido";
+import { crearUsuarioSchema, paginacionConsulta } from "../../compartido";
 import { consultar, consultarUno, transaccion } from "../../base_datos/conexion";
 import { requiereAutenticacion, requierePermiso } from "../../middlewares/autenticacion";
 import type { VariablesContexto } from "../../tipos/contexto";

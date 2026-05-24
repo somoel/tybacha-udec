@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { getCookie, setCookie, deleteCookie } from "hono/cookie";
-import { loginSchema } from "@tybacha/compartido";
+import { loginSchema } from "../../compartido";
 import { consultarUno, ejecutar } from "../../base_datos/conexion";
 import { requiereAutenticacion } from "../../middlewares/autenticacion";
 import type { VariablesContexto } from "../../tipos/contexto";

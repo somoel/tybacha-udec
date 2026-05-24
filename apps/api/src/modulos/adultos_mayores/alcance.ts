@@ -1,4 +1,4 @@
-import type { UsuarioAutenticado } from "@tybacha/compartido";
+import type { UsuarioAutenticado } from "../../compartido";
 import { consultarUno } from "../../base_datos/conexion";
 
 export async function usuarioPuedeAccederAdulto(usuario: UsuarioAutenticado, idAdultoMayor: number) {
