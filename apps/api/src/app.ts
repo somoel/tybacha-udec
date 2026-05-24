@@ -23,17 +23,27 @@ import { rutasIa } from "./modulos/ia/rutas";
 
 export const app = new Hono<{ Variables: VariablesContexto }>().basePath("/api");
 
+const origenesPermitidos = configuracion.CORS_ORIGEN.split(",")
+  .map((origen) => origen.trim())
+  .filter(Boolean);
+
 app.use("*", manejarErrores);
 app.use("*", agregarContexto);
 app.use(
   "*",
   cors({
-    origin: configuracion.CORS_ORIGEN.split(",").map((origen) => origen.trim()),
+    origin: (origin) => {
+      if (!origin) return origenesPermitidos[0] ?? "";
+      if (origenesPermitidos.includes(origin)) return origin;
+      return "";
+    },
     allowHeaders: ["Content-Type", "Authorization", "x-cron-secret"],
     allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true
   })
 );
+
+app.options("*", (c) => c.body(null, 204));
 
 app.route("/salud", rutasSalud);
 app.route("/auth", rutasAutenticacion);
