@@ -97,6 +97,12 @@ function sha256(valor: string) {
   return createHash("sha256").update(valor).digest("hex");
 }
 
+function depuracionActiva(req: SolicitudVercel) {
+  const valor = req.headers["x-debug-login"];
+  const valorTexto = Array.isArray(valor) ? valor[0] : valor;
+  return valorTexto === process.env.CRON_SECRET || process.env.DEBUG_LOGIN === "true";
+}
+
 async function crearAccessToken(usuario: UsuarioLogin) {
   const secreto = new TextEncoder().encode(process.env.JWT_ACCESS_SECRET);
   return new SignJWT({
@@ -141,11 +147,25 @@ export default async function handler(req: SolicitudVercel, res: RespuestaVercel
 
   let conexion: mysql.Connection | null = null;
   try {
+    const debug = depuracionActiva(req);
     const cuerpo = cuerpoComoObjeto(req.body);
     const correo = String(cuerpo.correo ?? "").trim().toLowerCase();
     const contrasena = String(cuerpo.contrasena ?? "");
     if (!correo || !contrasena) {
-      res.status(422).json({ error: { codigo: "VALIDACION", mensaje: "Correo y contrasena son obligatorios." } });
+      res.status(422).json({
+        error: {
+          codigo: "VALIDACION",
+          mensaje: "Correo y contrasena son obligatorios.",
+          depuracion: debug
+            ? {
+                body_tipo: typeof req.body,
+                body_claves: cuerpo && typeof cuerpo === "object" ? Object.keys(cuerpo) : [],
+                correo_recibido: Boolean(correo),
+                contrasena_recibida: Boolean(contrasena)
+              }
+            : undefined
+        }
+      });
       return;
     }
 
@@ -157,8 +177,27 @@ export default async function handler(req: SolicitudVercel, res: RespuestaVercel
       [correo] as any
     );
     const usuario = (filas as UsuarioLogin[])[0];
-    if (!usuario || usuario.estado !== "activo" || !(await bcrypt.compare(contrasena, usuario.contrasena_hash))) {
-      res.status(401).json({ error: { codigo: "CREDENCIALES_INVALIDAS", mensaje: "Correo o contrasena invalidos." } });
+    const contrasenaCoincide = usuario ? await bcrypt.compare(contrasena, usuario.contrasena_hash) : false;
+    if (!usuario || usuario.estado !== "activo" || !contrasenaCoincide) {
+      res.status(401).json({
+        error: {
+          codigo: "CREDENCIALES_INVALIDAS",
+          mensaje: "Correo o contrasena invalidos.",
+          depuracion: debug
+            ? {
+                correo_normalizado: correo,
+                usuario_encontrado: Boolean(usuario),
+                estado_usuario: usuario?.estado ?? null,
+                rol_usuario: usuario?.rol ?? null,
+                hash_prefijo: usuario?.contrasena_hash?.slice(0, 7) ?? null,
+                hash_longitud: usuario?.contrasena_hash?.length ?? null,
+                hash_huella: usuario?.contrasena_hash ? sha256(usuario.contrasena_hash).slice(0, 12) : null,
+                contrasena_longitud: contrasena.length,
+                contrasena_coincide: contrasenaCoincide
+              }
+            : undefined
+        }
+      });
       return;
     }
 
