@@ -27,8 +27,6 @@ const origenesPermitidos = configuracion.CORS_ORIGEN.split(",")
   .map((origen) => origen.trim())
   .filter(Boolean);
 
-app.use("*", manejarErrores);
-app.use("*", agregarContexto);
 app.use(
   "*",
   cors({
@@ -44,6 +42,8 @@ app.use(
 );
 
 app.options("*", (c) => c.body(null, 204));
+app.use("*", manejarErrores);
+app.use("*", agregarContexto);
 
 app.route("/salud", rutasSalud);
 app.route("/auth", rutasAutenticacion);
